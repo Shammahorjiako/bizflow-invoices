@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a130e"><title>BizFlow · Get receipts</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet"><style>:root{--bg:#0a130e;--card:rgba(22,38,29,.74);--line:rgba(120,190,150,.17);--g:#3ddc97;--g2:#1f9d6b;--gold:#f4c95d;--tx:#eaf3ed;--mu:#8ba897}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg)}
+body{margin:0;color:var(--tx);font:14px/1.55 'IBM Plex Mono',ui-monospace,monospace;min-height:100vh}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 80% at 50% -10%,#15352a,var(--bg) 62%)}
+.bg i{position:absolute;border-radius:50%;filter:blur(64px);opacity:.5;animation:drift 20s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:#1f9d6b}
+.bg i:nth-child(2){width:38vmax;height:38vmax;right:-16vmax;top:28vh;background:#6a3fd6;animation-duration:26s;opacity:.4}
+.bg i:nth-child(3){width:34vmax;height:34vmax;left:6vw;bottom:-18vmax;background:#c9a227;opacity:.25;animation-duration:23s}
+.bg:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;-webkit-mask-image:radial-gradient(circle at 50% 25%,#000,transparent 72%);mask-image:radial-gradient(circle at 50% 25%,#000,transparent 72%)}
+.sp{position:absolute;bottom:-12px;border-radius:50%;background:var(--g);opacity:0;animation:rise linear infinite}
+@keyframes drift{to{transform:translate(9vmax,7vmax) scale(1.18)}}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:.7}100%{transform:translateY(-105vh);opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes shine{to{transform:translateX(260%) skewX(-20deg)}}
+@keyframes glow{0%,100%{box-shadow:0 6px 22px rgba(61,220,151,.28)}50%{box-shadow:0 6px 34px rgba(61,220,151,.6)}}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
+.w{max-width:560px;margin:0 auto;padding:16px 16px 90px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.top a{color:var(--g);text-decoration:none;font-size:13px}
+.chip{padding:5px 12px;border-radius:99px;background:rgba(61,220,151,.12);border:1px solid var(--line);color:var(--g);font-size:12px}
+h1{font:700 34px/1.1 Fraunces,Georgia,serif;margin:14px 0 6px;background:linear-gradient(100deg,#fff 20%,var(--g) 60%,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mu);margin:0 0 20px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.28);animation:up .6s both;animation-delay:calc(var(--i,0)*90ms)}
+h2{display:flex;align-items:center;gap:10px;margin:0 0 14px;font:600 13px 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.n{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--g2));color:#06180f;font-weight:700;font-size:12px;letter-spacing:0}
+.btn{position:relative;overflow:hidden;display:block;width:100%;border:0;border-radius:13px;padding:14px 18px;background:linear-gradient(135deg,var(--g),var(--g2));color:#05170e;font:700 14px 'IBM Plex Mono',ui-monospace,monospace;cursor:pointer;text-align:center;text-decoration:none;transition:transform .15s,filter .2s}
+.btn:hover{filter:brightness(1.08);transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+.btn:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.4s ease-in-out infinite}
+.btn.pulse{animation:glow 2.4s ease-in-out infinite}
+.btn.g{background:rgba(255,255,255,.07);border:1px solid var(--line);color:var(--tx)}.btn.g:after{display:none}
+.btn.s{display:inline-block;width:auto;padding:9px 14px;font-size:12px;border-radius:10px}
+.btn.r{background:rgba(255,90,80,.16);border:1px solid rgba(255,110,100,.35);color:#ff9b94}.btn.r:after{display:none}
+.btn:disabled{opacity:.4;pointer-events:none}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rp .6s ease-out;pointer-events:none}@keyframes rp{to{transform:scale(3);opacity:0}}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--tx);font:inherit;outline:0;transition:border-color .2s,box-shadow .2s}
+input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(61,220,151,.18)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:linear-gradient(135deg,var(--g),var(--g2));color:#05170e;font-weight:700;padding:11px 18px;border-radius:99px;opacity:0;transition:.3s;pointer-events:none;z-index:9}.toast.on{opacity:1;transform:translate(-50%,0)}
+.demo{position:fixed;top:0;left:0;right:0;text-align:center;font-size:11px;padding:3px;background:rgba(244,201,93,.14);color:var(--gold);z-index:8}
+.cf{position:fixed;left:50%;top:60%;width:8px;height:12px;border-radius:2px;pointer-events:none;z-index:10;animation:cf 1.3s ease-out forwards}@keyframes cf{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}
+
+.w{padding-top:30px}
+.meter{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:14px;padding:14px}
+.box b{display:block;font:700 30px Fraunces,Georgia,serif}.box span{color:var(--mu);font-size:11px}
+.dots{display:flex;gap:7px;margin:6px 0 4px}.dots u{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.1);transition:.3s}.dots u.on{background:var(--g);box-shadow:0 0 12px var(--g);animation:pop .5s}
+.plan{position:relative;cursor:pointer;border:2px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;background:rgba(0,0,0,.2);transition:border-color .25s,transform .15s,background .25s;overflow:hidden}
+.plan:active{transform:scale(.985)}.plan.on{border-color:var(--g);background:rgba(61,220,151,.09);box-shadow:0 0 0 4px rgba(61,220,151,.08)}
+.plan .tick{position:absolute;right:14px;top:14px;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-size:13px;font-style:normal;color:transparent;transition:.25s}
+.plan.on .tick{background:var(--g);border-color:var(--g);color:#05170e;animation:pop .4s}
+.plan b{font:700 28px Fraunces,Georgia,serif}.plan small{color:var(--mu);display:block}
+.best{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:99px;background:linear-gradient(90deg,var(--gold),#ffdf8a);color:#3b2a00;font:700 10px 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.06em;vertical-align:middle}
+.cw{display:none;margin-top:12px}.plan.on .cw{display:block;animation:up .35s}
+input[type=range]{padding:0;height:6px;margin:14px 0 8px;accent-color:var(--g);background:transparent;border:0;box-shadow:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chips button{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--tx);border-radius:99px;padding:6px 12px;font:inherit;font-size:12px;cursor:pointer;transition:.2s}.chips button:hover{border-color:var(--g);color:var(--g)}
+.sum{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.25)}.sum b{font:700 22px Fraunces,Georgia,serif;color:var(--g)}
+.pcard{position:relative;overflow:hidden;cursor:pointer;border-radius:18px;padding:20px;color:#fff;background:linear-gradient(135deg,#7a4cf0,#4527b5 60%,#2b1a7a);box-shadow:0 14px 34px rgba(80,50,200,.4);transition:transform .2s}
+.pcard:hover{transform:translateY(-3px) rotate(-.4deg)}.pcard:active{transform:scale(.98)}
+.pcard:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-20deg);animation:shine 4.2s ease-in-out infinite}
+.pcard .lg{display:flex;justify-content:space-between;align-items:center;font-weight:700;letter-spacing:.04em}.chipic{width:34px;height:26px;border-radius:6px;background:linear-gradient(135deg,#f4c95d,#c9a227)}
+.pcard .no{font:700 28px 'IBM Plex Mono',monospace;letter-spacing:.12em;margin:22px 0 4px}.pcard small{opacity:.75}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.hint{color:var(--mu);font-size:12px;margin:12px 0 0}
+.ok{display:none;text-align:center;padding:10px 0}.ok.on{display:block;animation:up .5s}.ok .big{font-size:40px;animation:pop .6s}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);animation:up .4s both}.row:last-child{border:0}.row div:nth-child(2){flex:1}.row small{color:var(--mu);display:block}
+.av{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(61,220,151,.14);font-size:17px}
+.st{padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;background:rgba(61,220,151,.15);color:var(--g)}.st.p{background:rgba(244,201,93,.15);color:var(--gold)}.st.x{background:rgba(255,110,100,.15);color:#ff9b94}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s}.sheet.on{opacity:1;pointer-events:auto}
+.sh{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:#10211a;border:1px solid var(--line);border-radius:24px 24px 0 0;padding:20px 18px 24px;transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.9,.3,1)}.sheet.on .sh{transform:none}
+.sh:before{content:"";display:block;width:44px;height:4px;border-radius:9px;background:rgba(255,255,255,.2);margin:-8px auto 14px}.sh h3{margin:0 0 4px;font:700 22px Fraunces,Georgia,serif}.sh p{margin:0 0 14px;color:var(--mu)}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}.apps a{display:block;text-align:center;text-decoration:none;color:var(--tx);padding:14px 6px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);font-size:12px;transition:transform .15s,border-color .2s;animation:up .4s both}.apps a:hover{border-color:var(--g)}.apps a:active{transform:scale(.95)}.apps i{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 8px;border-radius:14px;font:700 20px Fraunces,Georgia,serif;font-style:normal;color:#fff}
+</style><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script src="shared.js"></script></head><body><div class="bg"><i></i><i></i><i></i></div><div class="w"><div class="top"><a href="index.html">← Back to invoices</a><span class="chip" id="chip">…</span></div>
+<h1>Print more.<br>Pay less.</h1><p class="sub">3 free receipts every day. Top up when you need more.</p>
+<div class="card" style="--i:1"><h2>Your balance</h2><div class="meter"><div class="box"><span>Free today</span><div class="dots" id="dots"><u></u><u></u><u></u></div><span id="fl">–</span></div><div class="box"><span>Paid receipts</span><b id="paid">0</b><span>never expire</span></div></div></div>
+<div class="card" style="--i:2"><h2><i class="n">1</i>Choose your top-up</h2>
+<div class="plan on" id="p1"><i class="tick">✓</i><b>₦2,000</b><span class="best">BEST VALUE</span><small>100 receipts · just ₦20 each</small></div>
+<div class="plan" id="p2"><i class="tick">✓</i><b>Custom</b><small>Pay what you have, get receipts at ₦20 each</small>
+<div class="cw"><input type="range" id="rg" min="200" max="10000" step="100" value="1000"><div class="chips"><button data-a="500">₦500</button><button data-a="1000">₦1,000</button><button data-a="1500">₦1,500</button><button data-a="5000">₦5,000</button></div><input id="am" type="number" min="200" placeholder="Or type an amount (min ₦200)" style="margin-top:12px"></div></div>
+<div class="sum"><span>You get <b id="cr">100</b> receipts</span><span>for <b id="tot" style="font-size:18px">₦2,000</b></span></div></div>
+<div class="card" style="--i:3"><h2><i class="n">2</i>Send the money</h2>
+<div class="pcard" id="card"><div class="lg"><span>PalmPay</span><i class="chipic"></i></div><div class="no">9069063759</div><small>Tap the card to copy the account number</small></div>
+<div class="two"><button class="btn g" id="ca">Copy number</button><button class="btn g" id="cm">Copy amount</button></div>
+<button class="btn pulse" id="payNow" style="margin-top:12px;font-size:16px;padding:16px">Pay</button>
+<p class="hint">Tap Pay: we copy the account number and open your banking app. Then come back and confirm below.</p></div>
+<div class="card" style="--i:4"><h2><i class="n">3</i>Confirm payment</h2><div id="form"><input id="ref" placeholder="Name on the account you paid from"><button class="btn" id="sent" style="margin-top:12px">I've sent the money ✓</button></div>
+<div class="ok" id="ok"><div class="big">🎉</div><b>Payment sent!</b><p class="hint">We're confirming it. Your receipts show up here once approved, usually within minutes.</p></div></div>
+<div class="card" style="--i:5"><h2>Your payments</h2><div id="list"></div></div></div>
+<div class="sheet" id="sheet"><div class="sh"><h3>Account number copied ✓</h3><p>Choose your bank app and send <b id="sa" style="color:var(--g)"></b> to <b style="color:var(--tx)">9069063759</b> (PalmPay)</p><div class="apps" id="apps"></div><button class="btn g" id="sx">Close</button></div></div>
+<script>const $=i=>document.getElementById(i),naira=n=>'₦'+Number(n||0).toLocaleString('en-NG');
+(function(){const b=document.querySelector('.bg');for(let i=0;i<14;i++){const s=document.createElement('span');s.className='sp';const z=2+Math.random()*4;s.style.cssText=`left:${Math.random()*100}%;width:${z}px;height:${z}px;animation-duration:${9+Math.random()*10}s;animation-delay:${-Math.random()*14}s`;b.appendChild(s);}})();
+document.addEventListener('pointerdown',e=>{const b=e.target.closest('.btn');if(!b)return;const r=b.getBoundingClientRect(),s=document.createElement('span'),d=Math.max(r.width,r.height);s.className='rip';s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;b.appendChild(s);setTimeout(()=>s.remove(),600);});
+function toast(m){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';document.body.appendChild(t);}t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1900);}
+function countUp(el,to,fmt=v=>v,ms=900){const t0=performance.now(),from=0;(function f(n){const k=Math.min(1,(n-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(from+(to-from)*e));if(k<1)requestAnimationFrame(f);})(t0);}
+function confetti(){const c=['#3ddc97','#f4c95d','#8f6bff','#fff'];for(let i=0;i<34;i++){const e=document.createElement('i');e.className='cf';e.style.cssText=`background:${c[i%4]};--x:${(Math.random()-.5)*340}px;--y:${-120-Math.random()*240}px;--r:${Math.random()*720}deg`;document.body.appendChild(e);setTimeout(()=>e.remove(),1400);}}
+
+let amt=2000,mode=1,pays=[],user=null;BF.init();
+const cr=()=>Math.floor(amt/20);
+function calc(){const ok=amt>=200;$('cr').textContent=ok?cr():0;$('tot').textContent=naira(amt);$('sent').disabled=!ok;}
+function pick(m){mode=m;$('p1').classList.toggle('on',m==1);$('p2').classList.toggle('on',m==2);if(m==1)amt=2000;else amt=parseInt($('am').value)||+$('rg').value;calc();}
+$('p1').onclick=()=>pick(1);$('p2').onclick=()=>pick(2);
+$('rg').oninput=()=>{amt=+$('rg').value;$('am').value='';calc();};$('am').oninput=()=>{amt=parseInt($('am').value)||0;calc();};
+document.querySelectorAll('.chips button').forEach(b=>b.onclick=e=>{e.stopPropagation();amt=+b.dataset.a;$('rg').value=amt;$('am').value='';calc();});
+['rg','am'].forEach(i=>$(i).onclick=e=>e.stopPropagation());
+const cp=(t,m)=>{(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast(m),()=>toast(m));};
+$('card').onclick=$('ca').onclick=()=>cp('9069063759','Account number copied ✓');$('cm').onclick=()=>cp(String(amt),'Amount copied ✓');
+const APPS=[['PalmPay','com.transsnet.palmpay','#7a4cf0'],['OPay','team.opay.pay','#1dc07b'],['Kuda','com.kudabank.app','#40196d']];
+const intent=p=>'intent://#Intent;scheme=https;package='+p+';S.browser_fallback_url='+encodeURIComponent('https://play.google.com/store/apps/details?id='+p)+';end';
+$('apps').innerHTML=APPS.map((a,i)=>`<a href="${intent(a[1])}" style="animation-delay:${i*70}ms"><i style="background:${a[2]}">${a[0][0]}</i>${a[0]}</a>`).join('')+`<a href="#" id="oth" style="animation-delay:210ms"><i style="background:#2c4338">+</i>Other bank</a>`;
+$('payNow').onclick=()=>{cp('9069063759','Account number copied ✓');$('sa').textContent=naira(amt);$('sheet').classList.add('on');};
+$('oth').onclick=e=>{e.preventDefault();$('sheet').classList.remove('on');toast('Open your bank app and paste the number');};
+$('sx').onclick=()=>$('sheet').classList.remove('on');$('sheet').onclick=e=>{if(e.target.id=='sheet')$('sheet').classList.remove('on');};
+$('sent').onclick=async()=>{const ref=$('ref').value.trim();if(!ref)return toast('Enter the account name you paid from');if(amt<200)return;$('sent').disabled=true;
+ try{await BF.db.collection('payments').add({uid:user.uid,email:user.email,amount:amt,ref,status:'pending',createdAt:firebase.firestore.FieldValue.serverTimestamp()});$('form').style.display='none';$('ok').classList.add('on');confetti();}
+ catch(e){toast('Could not send. Try again.');$('sent').disabled=false;}};
+function list(){$('list').innerHTML=pays.length?pays.map((p,i)=>{const n=p.status=='approved'?(p.cr||Math.floor(p.amount/20)):Math.floor(p.amount/20);return `<div class="row" style="animation-delay:${i*70}ms"><div class="av">${p.status=='approved'?'✅':p.status=='rejected'?'❌':'⏳'}</div><div><b>${naira(p.amount)}</b><small>${n} receipts · ${BF.when(p.createdAt)}</small></div><span class="st ${p.status=='pending'?'p':p.status=='rejected'?'x':''}">${p.status}</span></div>`}).join(''):'<div class="hint" style="margin:0">No payments yet.</div>';}
+function setDots(f){document.querySelectorAll('#dots u').forEach((u,i)=>setTimeout(()=>u.classList.toggle('on',i<f),200+i*140));$('fl').textContent=f+' of 3 left';}
+BF.auth.onAuthStateChanged(async u=>{if(!u){location.href='index.html';return;}user=u;$('chip').textContent=u.email;
+ try{const r=await BF.ensure(u);r.onSnapshot(sn=>{const l=BF.left(sn.data()||{});setDots(l.free);countUp($('paid'),l.paid);},()=>toast('Could not load balance'));
+ BF.db.collection('payments').where('uid','==',u.uid).onSnapshot(sn=>{pays=sn.docs.map(d=>d.data()).sort((a,b)=>(b.createdAt?.seconds||9e9)-(a.createdAt?.seconds||9e9));list();},()=>toast('Could not load payments'));}
+ catch(e){toast('Could not reach the database');}});
+calc();
+</script></body></html>
